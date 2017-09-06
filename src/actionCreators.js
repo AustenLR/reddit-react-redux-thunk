@@ -1,8 +1,8 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { ADD_SUBREDDIT_TOPICS } from './actions';
+import { ADD_SUBREDDIT_TOPICS, UPDATE_SELECTED_SUBREDDITS } from './actions';
 
-export function addSubRedditTopics(topics) {
+export function addSubredditTopics(topics) {
   return { type: ADD_SUBREDDIT_TOPICS, payload: topics };
 }
 
@@ -16,16 +16,28 @@ export function getSubredditTopics() {
         console.log(children);
         const childrenSorted = _.orderBy(children, 'data.subscribers', 'desc');
         console.log(childrenSorted);
-        const subRedditArr = _.map(childrenSorted, subreddit => {
+        const subredditArr = _.map(childrenSorted, subreddit => {
           return {
             title: _.get(subreddit, 'data.display_name'),
             description: _.get(subreddit, 'data.public_description'),
             url: _.get(subreddit, 'data.url')
           };
         });
-        console.log(subRedditArr);
+        console.log(subredditArr);
         //need to add to the dispatch function
-        dispatch(addSubRedditTopics(subRedditArr));
+        dispatch(addSubredditTopics(subredditArr));
       });
+  };
+}
+
+export function selectSubreddit(subredditUrl) {
+  console.log('in reducer, selectSubreddit');
+  return (dispatch, getState) => {
+    const currentState = getState();
+    console.log(currentState);
+    let selectedSubredditsArr = currentState.selectedSubreddits;
+    console.log(selectedSubredditsArr);
+    selectedSubredditsArr.push(subredditUrl);
+    return { type: UPDATE_SELECTED_SUBREDDITS, payload: selectedSubredditsArr };
   };
 }
