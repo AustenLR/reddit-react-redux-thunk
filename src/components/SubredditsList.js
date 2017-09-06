@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SubredditRow from './SubredditRow';
 
 const SubredditsList = props => {
-  console.log('SubredditsList');
-  console.log(props.selectedSubreddits);
   return (
     <div>
       <h4>
         {props.selectedSubreddits}
       </h4>
+      <button>
+        <Link to="/posts">View posts</Link>
+      </button>
       <ul>
         {props.subreddits.map(subreddit => {
           return (
