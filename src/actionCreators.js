@@ -11,11 +11,11 @@ export function getSubredditTopics() {
     axios
       .get('https://www.reddit.com/subreddits/default.json')
       .then(response => {
-        console.log(response);
+        //console.log(response);
         const children = _.get(response, 'data.data.children');
-        console.log(children);
+        //console.log(children);
         const childrenSorted = _.orderBy(children, 'data.subscribers', 'desc');
-        console.log(childrenSorted);
+        //console.log(childrenSorted);
         const subredditArr = _.map(childrenSorted, subreddit => {
           return {
             title: _.get(subreddit, 'data.display_name'),
@@ -23,7 +23,7 @@ export function getSubredditTopics() {
             url: _.get(subreddit, 'data.url')
           };
         });
-        console.log(subredditArr);
+        //console.log(subredditArr);
         //need to add to the dispatch function
         dispatch(addSubredditTopics(subredditArr));
       });
@@ -31,13 +31,15 @@ export function getSubredditTopics() {
 }
 
 export function selectSubreddit(subredditUrl) {
-  console.log('in reducer, selectSubreddit');
+  //console.log('in actionCreator, selectSubreddit');
   return (dispatch, getState) => {
-    const currentState = getState();
-    console.log(currentState);
-    let selectedSubredditsArr = currentState.selectedSubreddits;
-    console.log(selectedSubredditsArr);
+    let selectedSubredditsArr = getState().selectedSubreddits.slice();
     selectedSubredditsArr.push(subredditUrl);
-    return { type: UPDATE_SELECTED_SUBREDDITS, payload: selectedSubredditsArr };
+    //console.log(updatedSelectedSubredditsArr);
+    //const newSelectedTopicsArr = selectedSubredditsArr.concat(subredditUrl);
+    dispatch({
+      type: UPDATE_SELECTED_SUBREDDITS,
+      payload: selectedSubredditsArr
+    });
   };
 }

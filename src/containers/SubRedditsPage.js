@@ -13,20 +13,22 @@ class SubredditsPage extends Component {
       return <div>Loading...</div>;
     }
     return (
-      <div>
-        <SubredditsList
-          subreddits={this.props.subreddits}
-          onClick={this.props.onSubredditClick}
-        />
-      </div>
+      <SubredditsList
+        subreddits={this.props.subreddits}
+        selectedSubreddits={this.props.selectedSubreddits}
+        onClick={this.props.onSubredditClick}
+      />
     );
   }
 }
 
-const mapStateToProps = state => ({
-  subreddits: state.allSubreddits,
-  selectedSubreddits: state.selectedSubreddits
-});
+const mapStateToProps = state => {
+  console.log('updating mapStateToProps');
+  return {
+    subreddits: state.allSubreddits,
+    selectedSubreddits: state.selectedSubreddits
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   getSubreddits() {

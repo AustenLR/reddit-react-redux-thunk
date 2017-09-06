@@ -2,18 +2,25 @@ import React from 'react';
 import SubredditRow from './SubredditRow';
 
 const SubredditsList = props => {
+  console.log('SubredditsList');
+  console.log(props.selectedSubreddits);
   return (
-    <ul>
-      {props.subreddits.map(subreddit => {
-        return (
-          <SubredditRow
-            key={subreddit.url}
-            subreddit={subreddit}
-            onClick={props.onClick}
-          />
-        );
-      })}
-    </ul>
+    <div>
+      <h4>
+        {props.selectedSubreddits}
+      </h4>
+      <ul>
+        {props.subreddits.map(subreddit => {
+          return (
+            <SubredditRow
+              key={subreddit.url}
+              subreddit={subreddit}
+              onClick={props.onClick}
+            />
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
