@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSubredditTopics } from '../actionCreators';
+import SubredditsList from '../components/SubredditsList';
 
 class SubredditsPage extends Component {
   componentDidMount() {
@@ -8,12 +9,20 @@ class SubredditsPage extends Component {
   }
 
   render() {
-    return <div />;
+    console.log(Array.isArray(this.props.subreddits));
+    if (this.props.subreddits.length === 0) {
+      return <div>Loading...</div>;
+    }
+    return (
+      <div>
+        <SubredditsList subreddits={this.props.subreddits} />
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  subredditUrl: state.allSubreddits
+  subreddits: state.allSubreddits
 });
 const mapDispatchToProps = dispatch => ({
   getSubreddits() {
