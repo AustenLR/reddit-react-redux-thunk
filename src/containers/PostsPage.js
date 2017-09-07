@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSubredditPosts } from '../actionCreators.js';
+import { getSubredditPosts } from '../actionCreators';
+import PostsList from '../components/PostsList';
 
 class PostPage extends Component {
   componentDidMount() {
@@ -8,11 +9,11 @@ class PostPage extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {JSON.stringify(this.props.posts)}
-      </div>
-    );
+    console.log(this.props.posts);
+    if (this.props.posts.length === 0) {
+      return <div>Loading...</div>;
+    }
+    return <PostsList posts={this.props.posts} />;
   }
 }
 
@@ -22,8 +23,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const mapStateToProps = state => ({
-  posts: state.subredditPosts
-});
+const mapStateToProps = state => {
+  const posts = [].concat.apply([], state.subredditPosts);
+  return {
+    posts: posts
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
