@@ -5,7 +5,14 @@ const PostsList = props => {
   return (
     <ul>
       {props.posts.map(post => {
-        return <PostRow key={post.id} post={post} />;
+        return (
+          <PostRow
+            key={post.id}
+            post={post}
+            displayPostOnClick={props.displayPostOnClick}
+            bodyDisplayedId={props.postBodyDisplayed}
+          />
+        );
       })}
     </ul>
   );

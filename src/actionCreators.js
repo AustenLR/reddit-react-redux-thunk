@@ -3,7 +3,8 @@ import _ from 'lodash';
 import {
   ADD_SUBREDDIT_TOPICS,
   UPDATE_SELECTED_SUBREDDITS,
-  ADD_SUBREDDIT_POSTS
+  ADD_SUBREDDIT_POSTS,
+  SHOW_POST_BODY
 } from './actions';
 
 export function addSubredditTopics(topics) {
@@ -38,7 +39,12 @@ export function selectSubreddit(subredditUrl) {
   //console.log('in actionCreator, selectSubreddit');
   return (dispatch, getState) => {
     let selectedSubredditsArr = getState().selectedSubreddits.slice();
-    selectedSubredditsArr.push(subredditUrl);
+    const selectedSubredditIndex = selectedSubredditsArr.indexOf(subredditUrl);
+    if (selectedSubredditIndex !== -1) {
+      selectedSubredditsArr.splice(selectedSubredditIndex, 1);
+    } else {
+      selectedSubredditsArr.push(subredditUrl);
+    }
     //console.log(updatedSelectedSubredditsArr);
     //const newSelectedTopicsArr = selectedSubredditsArr.concat(subredditUrl);
     dispatch({
@@ -60,15 +66,16 @@ export function getSubredditPosts() {
       return axios
         .get(`https://www.reddit.com${subreddit}hot.json`)
         .then(response => {
-          console.log(response);
+          //console.log(response);
           const children = response.data.data.children;
-          console.log(children);
+          //console.log(children);
           return children.map(post => {
             return {
               id: post.data.id,
               subreddit: subreddit,
               title: post.data.title,
-              body: post.data.selftext_html
+              body: post.data.selftext,
+              thumbnail: post.data.thumbnail
             };
           });
         });
@@ -79,4 +86,8 @@ export function getSubredditPosts() {
       dispatch(addSubredditPosts(subredditPostsArr));
     });
   };
+}
+
+export function showPostBody(postId) {
+  return { type: SHOW_POST_BODY, payload: postId };
 }

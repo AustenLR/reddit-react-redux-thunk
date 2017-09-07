@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   ADD_SUBREDDIT_TOPICS,
   UPDATE_SELECTED_SUBREDDITS,
-  ADD_SUBREDDIT_POSTS
+  ADD_SUBREDDIT_POSTS,
+  SHOW_POST_BODY
 } from './actions';
 
 const allSubreddits = (state = [], action) => {
@@ -29,10 +30,18 @@ const subredditPosts = (state = [], action) => {
   return state;
 };
 
+const displayedPostBodyId = (state = '', action) => {
+  if (action.type === SHOW_POST_BODY) {
+    return action.payload;
+  }
+  return state;
+};
+
 const rootReducer = combineReducers({
   allSubreddits,
   selectedSubreddits,
-  subredditPosts
+  subredditPosts,
+  displayedPostBodyId
 });
 
 export default rootReducer;
