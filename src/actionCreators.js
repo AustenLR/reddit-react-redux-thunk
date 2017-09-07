@@ -54,22 +54,22 @@ export function selectSubreddit(subredditUrl) {
   };
 }
 
-export function addSubredditPosts(posts) {
-  return { type: ADD_SUBREDDIT_POSTS, payload: posts };
+export function addSubredditPosts(subredditPostsObj) {
+  return { type: ADD_SUBREDDIT_POSTS, payload: subredditPostsObj };
 }
 
-export function getSubredditPosts() {
-  return (dispatch, getState) => {
-    const selectedSubredditsArr = getState().selectedSubreddits;
+export function getSubredditPosts(subreddits) {
+  return dispatch => {
+    //const selectedSubredditsArr = getState().selectedSubreddits;
     //if(selectedSubredditsArr.length === 0) return;
-    const promises = selectedSubredditsArr.map(subreddit => {
+    const promises = subreddits.map(subreddit => {
       return axios
         .get(`https://www.reddit.com${subreddit}hot.json`)
         .then(response => {
           //console.log(response);
           const children = response.data.data.children;
           //console.log(children);
-          return children.map(post => {
+          let subredditPostArr = children.map(post => {
             return {
               id: post.data.id,
               subreddit: subreddit,
@@ -78,12 +78,20 @@ export function getSubredditPosts() {
               thumbnail: post.data.thumbnail
             };
           });
+          let subredditObj = {
+            id: subreddit,
+            [subreddit]: subredditPostArr
+          };
+          console.log(subredditObj);
+          return subredditObj;
         });
     });
 
-    Promise.all(promises).then(subredditPostsArr => {
-      console.log(subredditPostsArr);
-      dispatch(addSubredditPosts(subredditPostsArr));
+    Promise.all(promises).then(subredditsPostsArr => {
+      console.log(subredditsPostsArr);
+      subredditsPostsArr.forEach(subredditPostsObj => {
+        dispatch(addSubredditPosts(subredditPostsObj));
+      });
     });
   };
 }

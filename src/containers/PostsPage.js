@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSubredditPosts, showPostBody } from '../actionCreators';
 import PostsList from '../components/PostsList';
+import { getUncachedSubreddits, getCachedPosts } from '../reducers';
 
 class PostPage extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    console.log('componentDidMount');
+    if (this.props.uncachedSubreddits.length !== 0) {
+      this.props.getPosts(this.props.uncachedSubreddits);
+    }
   }
 
   render() {
-    console.log(this.props.postBodyDisplayed);
     if (this.props.posts.length === 0) {
       return <div>Loading...</div>;
     }
@@ -24,8 +27,8 @@ class PostPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getPosts() {
-    dispatch(getSubredditPosts());
+  getPosts(uncachedSubredditsArray) {
+    dispatch(getSubredditPosts(uncachedSubredditsArray));
   },
   displayPostBody(postId) {
     dispatch(showPostBody(postId));
@@ -33,9 +36,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  const posts = [].concat.apply([], state.subredditPosts);
   return {
-    posts: posts,
+    posts: getCachedPosts(state),
+    uncachedSubreddits: getUncachedSubreddits(state),
     postBodyDisplayed: state.displayedPostBodyId
   };
 };
