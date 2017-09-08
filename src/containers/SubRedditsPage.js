@@ -5,7 +5,9 @@ import SubredditsList from '../components/SubredditsList';
 
 class SubredditsPage extends Component {
   componentDidMount() {
-    this.props.getSubreddits();
+    if (this.props.subreddits.length === 0) {
+      this.props.getSubreddits();
+    }
   }
 
   render() {
@@ -35,7 +37,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getSubredditTopics());
   },
   onSubredditClick(subredditUrl) {
-    console.log(subredditUrl);
     dispatch(selectSubreddit(subredditUrl));
   }
 });

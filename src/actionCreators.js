@@ -16,11 +16,8 @@ export function getSubredditTopics() {
     axios
       .get('https://www.reddit.com/subreddits/default.json')
       .then(response => {
-        //console.log(response);
         const children = _.get(response, 'data.data.children');
-        //console.log(children);
         const childrenSorted = _.orderBy(children, 'data.subscribers', 'desc');
-        //console.log(childrenSorted);
         const subredditArr = _.map(childrenSorted, subreddit => {
           return {
             title: _.get(subreddit, 'data.display_name'),
@@ -28,15 +25,12 @@ export function getSubredditTopics() {
             url: _.get(subreddit, 'data.url')
           };
         });
-        //console.log(subredditArr);
-        //need to add to the dispatch function
         dispatch(addSubredditTopics(subredditArr));
       });
   };
 }
 
 export function selectSubreddit(subredditUrl) {
-  //console.log('in actionCreator, selectSubreddit');
   return (dispatch, getState) => {
     let selectedSubredditsArr = getState().selectedSubreddits.slice();
     const selectedSubredditIndex = selectedSubredditsArr.indexOf(subredditUrl);
@@ -45,8 +39,6 @@ export function selectSubreddit(subredditUrl) {
     } else {
       selectedSubredditsArr.push(subredditUrl);
     }
-    //console.log(updatedSelectedSubredditsArr);
-    //const newSelectedTopicsArr = selectedSubredditsArr.concat(subredditUrl);
     dispatch({
       type: UPDATE_SELECTED_SUBREDDITS,
       payload: selectedSubredditsArr
@@ -66,9 +58,7 @@ export function getSubredditPosts(subreddits) {
       return axios
         .get(`https://www.reddit.com${subreddit}hot.json`)
         .then(response => {
-          //console.log(response);
           const children = response.data.data.children;
-          //console.log(children);
           let subredditPostArr = children.map(post => {
             return {
               id: post.data.id,
@@ -82,13 +72,11 @@ export function getSubredditPosts(subreddits) {
             id: subreddit,
             [subreddit]: subredditPostArr
           };
-          console.log(subredditObj);
           return subredditObj;
         });
     });
 
     Promise.all(promises).then(subredditsPostsArr => {
-      console.log(subredditsPostsArr);
       subredditsPostsArr.forEach(subredditPostsObj => {
         dispatch(addSubredditPosts(subredditPostsObj));
       });

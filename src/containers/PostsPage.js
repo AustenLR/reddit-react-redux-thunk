@@ -6,7 +6,6 @@ import { getUncachedSubreddits, getCachedPosts } from '../reducers';
 
 class PostPage extends Component {
   componentDidMount() {
-    console.log('componentDidMount');
     if (this.props.uncachedSubreddits.length !== 0) {
       this.props.getPosts(this.props.uncachedSubreddits);
     }
