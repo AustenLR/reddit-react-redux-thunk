@@ -26,6 +26,9 @@ export function getSubredditTopics() {
           };
         });
         dispatch(addSubredditTopics(subredditArr));
+      })
+      .catch(error => {
+        console.error('axios error', error);
       });
   };
 }
@@ -73,6 +76,9 @@ export function getSubredditPosts(subreddits) {
             [subreddit]: subredditPostArr
           };
           return subredditObj;
+        })
+        .catch(error => {
+          console.error('axios error', error);
         });
     });
 

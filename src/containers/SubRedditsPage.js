@@ -25,7 +25,6 @@ class SubredditsPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('updating mapStateToProps');
   return {
     subreddits: state.allSubreddits,
     selectedSubreddits: state.selectedSubreddits
