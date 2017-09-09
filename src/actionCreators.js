@@ -91,5 +91,11 @@ export function getSubredditPosts(subreddits) {
 }
 
 export function showPostBody(postId) {
-  return { type: SHOW_POST_BODY, payload: postId };
+  return (dispatch, getState) => {
+    let currentPostDisplayedId = getState().displayedPostBodyId;
+    if (currentPostDisplayedId === postId) {
+      postId = '';
+    }
+    dispatch({ type: SHOW_POST_BODY, payload: postId });
+  };
 }

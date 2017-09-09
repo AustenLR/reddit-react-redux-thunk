@@ -4,13 +4,12 @@ const PostRow = props => {
   const displayPost = () => props.displayPostOnClick(props.post.id);
   let postBody;
   if (props.bodyDisplayedId === props.post.id) {
-    console.log(props.post);
-    console.log(props.bodyDisplayedId);
-    console.log(props.post.id);
-    console.log(props.post.body);
+    let text = props.post.body
+      ? props.post.body
+      : 'This post does not contain a body';
     postBody = (
       <p>
-        {props.post.body}
+        {text}
       </p>
     );
   }
