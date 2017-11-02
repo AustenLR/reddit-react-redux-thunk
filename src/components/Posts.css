@@ -40,7 +40,7 @@
 }
 
 .Posts button:hover {
-  background-color: lightblue;
+  background-color: #b8eff9;
 }
 
 .Posts ul {
@@ -60,7 +60,7 @@
 }
 
 .Posts li:hover {
-  background-color: #e19df2;
+  background-color: #b8eff9;
 }
 
 .Posts li > div {

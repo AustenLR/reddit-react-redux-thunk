@@ -8,7 +8,7 @@ const SubredditsList = props => {
 
   return (
     <div className="SubredditList">
-      <h2>Choose Subreddits</h2>
+      <h2>Select Subreddit Categories</h2>
       <button style={{ visibility }}>
         <Link to="/posts">View Posts</Link>
       </button>
