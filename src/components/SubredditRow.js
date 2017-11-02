@@ -2,17 +2,20 @@ import React from 'react';
 
 const SubredditRow = props => {
   const subRedditClick = () => {
-    console.log(props.subreddit.url);
     props.onClick(props.subreddit.url);
   };
+
+  let backgroundColor = props.selected ? '#c0f0ff' : '#fff';
   return (
     <li>
-      <h3 onClick={subRedditClick}>
-        {props.subreddit.title}
-      </h3>
-      <p>
-        {props.subreddit.description}
-      </p>
+      <div style={{ backgroundColor }} onClick={subRedditClick}>
+        <h3>
+          {props.subreddit.title}
+        </h3>
+        <p>
+          {props.subreddit.description}
+        </p>
+      </div>
     </li>
   );
 };

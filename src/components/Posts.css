@@ -1,0 +1,60 @@
+.Posts {
+  padding: 20px;
+}
+
+.Posts button {
+  display: block;
+  margin: 0 auto;
+  background-color: lightgreen;
+  border-radius: 28px;
+  padding: 10px, 20px;
+  margin-bottom: 15px;
+}
+
+.Posts a {
+  text-decoration: none !important;
+  font-family: Arial;
+  font-size: 12px;
+}
+
+.Posts button:hover {
+  background-color: lightblue;
+}
+
+.Posts ul {
+  list-style: none;
+  padding-left: 0;
+  width: 700px;
+  margin: auto;
+  border: 1px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  cursor: pointer;
+}
+
+.Posts li {
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.Posts li > div {
+  padding-left: 20px;
+  align-items: center;
+  display: flex;
+}
+
+.Posts li h3 {
+  vertical-align: top;
+  margin: 0;
+  display: block;
+}
+
+.thumbnail {
+  max-width: 65px;
+  margin: 10px;
+}
+
+.Posts li p {
+  padding: 10px 0;
+  margin-left: 20px;
+}

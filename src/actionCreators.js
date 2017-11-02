@@ -22,7 +22,8 @@ export function getSubredditTopics() {
           return {
             title: _.get(subreddit, 'data.display_name'),
             description: _.get(subreddit, 'data.public_description'),
-            url: _.get(subreddit, 'data.url')
+            url: _.get(subreddit, 'data.url'),
+            thumbnail: _.get(subreddit, 'data.thumbnail')
           };
         });
         dispatch(addSubredditTopics(subredditArr));

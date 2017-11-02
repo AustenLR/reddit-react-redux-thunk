@@ -15,8 +15,6 @@ const allSubreddits = (state = [], action) => {
 
 const selectedSubreddits = (state = [], action) => {
   if (action.type === UPDATE_SELECTED_SUBREDDITS) {
-    console.log('in reducer, selectedSubreddits');
-    console.log(action.payload);
     return action.payload;
   }
   return state;
@@ -24,8 +22,6 @@ const selectedSubreddits = (state = [], action) => {
 
 const subredditPosts = (state = {}, action) => {
   if (action.type === ADD_SUBREDDIT_POSTS) {
-    console.log('in reducer, subredditPosts');
-    console.log(action.payload);
     return Object.assign({}, state, {
       [action.payload.id]: action.payload[action.payload.id]
     });
@@ -49,24 +45,18 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-//selector
+//selectors
 
 export function getUncachedSubreddits(state) {
-  console.log('getUncachedSubreddits selector');
   const currentSelectedSubreddits = state.selectedSubreddits;
-  console.log(currentSelectedSubreddits);
   const filteredArr = currentSelectedSubreddits.filter(subreddit => {
-    console.log(state.subredditPosts);
     return !state.subredditPosts[subreddit];
   });
-  console.log(filteredArr);
   return filteredArr;
 }
 
 export function getCachedPosts(state) {
-  console.log('getCachedPosts');
   const currentSelectedSubreddits = state.selectedSubreddits;
-  console.log(currentSelectedSubreddits);
   const reduceArr = currentSelectedSubreddits.reduce(
     (postsArray, subreddit) => {
       var posts = state.subredditPosts[subreddit];
@@ -78,15 +68,5 @@ export function getCachedPosts(state) {
     },
     []
   );
-  console.log(reduceArr);
   return reduceArr;
 }
-/*
-two selectors
-  1. Posts that are cached to be displayed
-  2. Subreddits we need to make the API call for 
-
-Post Page:
- - component did mount, calls API if needed
-
-*/
