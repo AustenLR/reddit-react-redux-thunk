@@ -3,7 +3,8 @@ import {
   ADD_SUBREDDIT_TOPICS,
   UPDATE_SELECTED_SUBREDDITS,
   ADD_SUBREDDIT_POSTS,
-  SHOW_POST_BODY
+  SHOW_POST_BODY,
+  UPDATE_FILTER
 } from './actions';
 
 const allSubreddits = (state = [], action) => {
@@ -29,6 +30,13 @@ const subredditPosts = (state = {}, action) => {
   return state;
 };
 
+const filterSubreddit = (state = 'All', action) => {
+  if (action.type === UPDATE_FILTER) {
+    return action.payload;
+  }
+  return state;
+};
+
 const displayedPostBodyId = (state = '', action) => {
   if (action.type === SHOW_POST_BODY) {
     return action.payload;
@@ -40,6 +48,7 @@ const rootReducer = combineReducers({
   allSubreddits,
   selectedSubreddits,
   subredditPosts,
+  filterSubreddit,
   displayedPostBodyId
 });
 
@@ -55,12 +64,17 @@ export function getUncachedSubreddits(state) {
   return filteredArr;
 }
 
-export function getCachedPosts(state) {
+export function getFilteredCachedPosts(state) {
   const currentSelectedSubreddits = state.selectedSubreddits;
+  const cachedPosts = state.subredditPosts;
+  const subredditFilter = state.filterSubreddit;
   const reduceArr = currentSelectedSubreddits.reduce(
     (postsArray, subreddit) => {
-      var posts = state.subredditPosts[subreddit];
-      if (posts) {
+      let posts = cachedPosts[subreddit];
+      if (
+        posts &&
+        (subredditFilter === 'All' || subredditFilter === subreddit)
+      ) {
         return postsArray.concat(posts);
       } else {
         return postsArray;

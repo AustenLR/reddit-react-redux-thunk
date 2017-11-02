@@ -4,7 +4,8 @@ import {
   ADD_SUBREDDIT_TOPICS,
   UPDATE_SELECTED_SUBREDDITS,
   ADD_SUBREDDIT_POSTS,
-  SHOW_POST_BODY
+  SHOW_POST_BODY,
+  UPDATE_FILTER
 } from './actions';
 
 export function addSubredditTopics(topics) {
@@ -89,6 +90,10 @@ export function getSubredditPosts(subreddits) {
       });
     });
   };
+}
+
+export function updateFilter(url) {
+  return { type: UPDATE_FILTER, payload: url };
 }
 
 export function showPostBody(postId) {

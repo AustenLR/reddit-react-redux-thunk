@@ -5,7 +5,7 @@ const SubredditRow = props => {
     props.onClick(props.subreddit.url);
   };
 
-  let backgroundColor = props.selected ? '#c0f0ff' : '#fff';
+  let backgroundColor = props.selected ? '#e19df2' : '#fff';
   return (
     <li>
       <div style={{ backgroundColor }} onClick={subRedditClick}>
