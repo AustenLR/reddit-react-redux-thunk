@@ -20,10 +20,10 @@ const PostRow = props => {
     );
   }
   return (
-    <li>
+    <li onClick={displayPost}>
       <div>
         {thumbnail}
-        <h3 onClick={displayPost}>
+        <h3>
           {props.post.title}
         </h3>
       </div>

@@ -18,15 +18,21 @@ class PostPage extends Component {
 
   render() {
     if (this.props.posts.length === 0) {
-      return <div>Loading...</div>;
+      let textAlign = 'center';
+      return <h4 style={{ textAlign }}>Fetching Posts...</h4>;
     }
     return (
       <div>
-        <PostsFilter
-          categories={this.props.subredditCategories}
-          currentFilter={this.props.subredditFilter}
-          updateSubredditFilter={this.props.updateSubredditFilter}
-        />
+        <div className="PostsFilter">
+          <div>
+            <h2>Filter by Subreddit Category:</h2>
+            <PostsFilter
+              categories={this.props.subredditCategories}
+              currentFilter={this.props.subredditFilter}
+              updateSubredditFilter={this.props.updateSubredditFilter}
+            />
+          </div>
+        </div>
         <PostsList
           posts={this.props.posts}
           displayPostOnClick={this.props.displayPostBody}

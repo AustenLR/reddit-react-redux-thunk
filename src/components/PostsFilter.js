@@ -15,7 +15,7 @@ const PostsFilter = props => {
     );
   };
   return (
-    <div className="PostsFilter">
+    <div>
       {displaySubredditFilter('All')}
       {props.categories.map(category => displaySubredditFilter(category))}
     </div>

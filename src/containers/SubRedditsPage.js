@@ -12,7 +12,8 @@ class SubredditsPage extends Component {
 
   render() {
     if (this.props.subreddits.length === 0) {
-      return <div>Loading...</div>;
+      let textAlign = 'center';
+      return <h4 style={{ textAlign }}>Fetching Categories...</h4>;
     }
     return (
       <SubredditsList

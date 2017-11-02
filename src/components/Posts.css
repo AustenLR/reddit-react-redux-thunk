@@ -3,6 +3,13 @@
   text-align: center;
 }
 
+.PostsFilter > div {
+  border: 2px dashed black;
+  border-radius: 20px;
+  width: 850px;
+  margin: 0 auto;
+}
+
 .PostsFilter button {
   display: inline-block;
   margin: 10px auto;
@@ -39,7 +46,7 @@
 .Posts ul {
   list-style: none;
   padding-left: 0;
-  width: 700px;
+  width: 850px;
   margin: auto;
   border: 1px solid black;
   overflow-x: hidden;
@@ -50,6 +57,10 @@
 .Posts li {
   text-align: left;
   border-bottom: 1px solid black;
+}
+
+.Posts li:hover {
+  background-color: #e19df2;
 }
 
 .Posts li > div {
